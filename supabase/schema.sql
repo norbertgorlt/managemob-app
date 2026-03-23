@@ -23,22 +23,39 @@ CREATE TABLE IF NOT EXISTS sending_organisations (
 CREATE TABLE IF NOT EXISTS mobility_service_providers (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
-  contact_person TEXT,
-  email TEXT,
-  phone TEXT,
+  pic_number TEXT,
+  address TEXT,
+  postcode TEXT,
   city TEXT,
   country TEXT,
+  website TEXT,
+  email TEXT,
+  phone TEXT,
+  contact_person TEXT,
+  contact_email TEXT,
+  contact_phone TEXT,
+  contact_comments TEXT,
+  num_offices INTEGER,
+  num_employees INTEGER,
+  placement_capacity INTEGER,
+  placement_fees TEXT,
+  geographic_area TEXT,
+  specialty_1 TEXT,
+  specialty_2 TEXT,
+  specialty_3 TEXT,
+  notes TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS language_course_providers (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
+  address TEXT,
+  city TEXT,
+  country TEXT,
   contact_person TEXT,
   email TEXT,
   phone TEXT,
-  city TEXT,
-  country TEXT,
   language_taught TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -63,8 +80,11 @@ CREATE TABLE IF NOT EXISTS insurance_providers (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
   contact_person TEXT,
-  email TEXT,
   phone TEXT,
+  email TEXT,
+  address TEXT,
+  city TEXT,
+  notes TEXT,
   status TEXT DEFAULT 'Todo',
   created_at TIMESTAMPTZ DEFAULT NOW()
 );

@@ -29,6 +29,8 @@ export default function Sidebar({ userName, userEmail, onLogout }: SidebarProps)
     { label: t('nav_mobilityProviders'), path: '/incoming/mobility-providers' },
     { label: t('nav_groups'), path: '/incoming/groups' },
     { label: t('nav_hostCompanies'), path: '/incoming/host-companies' },
+    { label: t('nav_insurance'), path: '/incoming/insurance' },
+    { label: t('nav_languageCourseProviders'), path: '/incoming/language-course-providers' },
   ]
 
   const outgoingItems = [
@@ -41,6 +43,8 @@ export default function Sidebar({ userName, userEmail, onLogout }: SidebarProps)
     { label: t('nav_mobilityProviders'), path: '/outgoing/mobility-providers' },
     { label: t('nav_groups'), path: '/outgoing/groups' },
     { label: t('nav_hostCompanies'), path: '/outgoing/host-companies' },
+    { label: t('nav_insurance'), path: '/outgoing/insurance' },
+    { label: t('nav_languageCourseProviders'), path: '/outgoing/language-course-providers' },
   ]
 
   const currentLang = LANGUAGES.find(l => l.code === lang)

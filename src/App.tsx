@@ -13,6 +13,8 @@ import TransferPage from './pages/TransferPage'
 import SendingOrgsPage from './pages/SendingOrgsPage'
 import FinancialInfoPage from './pages/FinancialInfoPage'
 import MobilityProvidersPage from './pages/MobilityProvidersPage'
+import InsurancePage from './pages/InsurancePage'
+import LanguageCourseProviderPage from './pages/LanguageCourseProviderPage'
 import './styles/main.css'
 
 function App() {
@@ -59,6 +61,8 @@ function App() {
           <Route path="incoming/mobility-providers" element={<MobilityProvidersPage />} />
           <Route path="incoming/groups" element={<ParticipantsPage typology="Incoming" groupView />} />
           <Route path="incoming/host-companies" element={<HostCompaniesPage />} />
+          <Route path="incoming/insurance" element={<InsurancePage />} />
+          <Route path="incoming/language-course-providers" element={<LanguageCourseProviderPage />} />
           <Route path="outgoing/individuals" element={<ParticipantsPage typology="Outgoing" />} />
           <Route path="outgoing/travel" element={<TravelDetailsPage typology="Outgoing" />} />
           <Route path="outgoing/transfer" element={<TransferPage />} />
@@ -68,6 +72,8 @@ function App() {
           <Route path="outgoing/mobility-providers" element={<MobilityProvidersPage />} />
           <Route path="outgoing/groups" element={<ParticipantsPage typology="Outgoing" groupView />} />
           <Route path="outgoing/host-companies" element={<HostCompaniesPage />} />
+          <Route path="outgoing/insurance" element={<InsurancePage />} />
+          <Route path="outgoing/language-course-providers" element={<LanguageCourseProviderPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -102,22 +102,39 @@ export interface SendingOrganisation {
 export interface MobilityServiceProvider {
   id: string
   name: string
-  contact_person: string | null
-  email: string | null
-  phone: string | null
+  pic_number: string | null
+  address: string | null
+  postcode: string | null
   city: string | null
   country: string | null
+  website: string | null
+  email: string | null
+  phone: string | null
+  contact_person: string | null
+  contact_email: string | null
+  contact_phone: string | null
+  contact_comments: string | null
+  num_offices: number | null
+  num_employees: number | null
+  placement_capacity: number | null
+  placement_fees: string | null
+  geographic_area: string | null
+  specialty_1: string | null
+  specialty_2: string | null
+  specialty_3: string | null
+  notes: string | null
   created_at: string | null
 }
 
 export interface LanguageCourseProvider {
   id: string
   name: string
+  address: string | null
+  city: string | null
+  country: string | null
   contact_person: string | null
   email: string | null
   phone: string | null
-  city: string | null
-  country: string | null
   language_taught: string | null
   created_at: string | null
 }
@@ -142,8 +159,11 @@ export interface InsuranceProvider {
   id: string
   name: string
   contact_person: string | null
-  email: string | null
   phone: string | null
+  email: string | null
+  address: string | null
+  city: string | null
+  notes: string | null
   status: string | null
   created_at: string | null
 }
