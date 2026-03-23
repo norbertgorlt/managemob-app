@@ -13,6 +13,8 @@ const es: Record<TranslationKeys, string> = {
   nav_mobilityProviders: 'Proveedores de movilidad',
   nav_groups: 'Grupos y participantes',
   nav_hostCompanies: 'Empresas de acogida',
+  nav_insurance: 'Seguro',
+  nav_languageCourseProviders: 'Proveedores de cursos de idiomas',
 
   login_title: 'Managemob',
   login_subtitle: 'Inicia sesión en tu cuenta',

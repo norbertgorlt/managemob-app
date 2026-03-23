@@ -12,6 +12,8 @@ const en = {
   nav_mobilityProviders: 'Mobility Service Providers',
   nav_groups: 'Groups and Participants',
   nav_hostCompanies: 'Host companies',
+  nav_insurance: 'Insurance',
+  nav_languageCourseProviders: 'Language Course Providers',
 
   // Auth
   login_title: 'Managemob',
