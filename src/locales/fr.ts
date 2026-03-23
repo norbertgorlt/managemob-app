@@ -132,7 +132,7 @@ const fr: Record<TranslationKeys, string> = {
   fld_project: 'Projet',
   fld_group_name: 'Nom du groupe',
 
-  fld_sending_org: 'Organisme d'envoi',
+  fld_sending_org: 'Organisme d\'envoi',
   fld_host_company: 'Entreprise d\'accueil',
   fld_insurance_prov: 'Assurance',
   fld_transfer_prov: 'Transfert',
