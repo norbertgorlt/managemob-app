@@ -132,7 +132,7 @@ const fr: Record<TranslationKeys, string> = {
   fld_project: 'Projet',
   fld_group_name: 'Nom du groupe',
 
-  fld_sending_org: 'Organisation envoyante',
+  fld_sending_org: 'Organisme d'envoi',
   fld_host_company: 'Entreprise d\'accueil',
   fld_insurance_prov: 'Assurance',
   fld_transfer_prov: 'Transfert',
@@ -217,10 +217,10 @@ const fr: Record<TranslationKeys, string> = {
   acc_hint: 'Sélectionnez un hébergement ou créez-en un nouveau',
   acc_new_title: 'Nouvel hébergement',
 
-  page_sending_orgs: 'Organisations envoyantes',
+  page_sending_orgs: 'Organismes d\'envoi',
   so_new: 'Nouvelle organisation',
   so_hint: 'Sélectionnez une organisation ou créez-en une nouvelle',
-  sec_so_details: 'Données de l\'organisation',
+  sec_so_details: 'Données de l\'organisme',
 
   page_transfer: 'Prestataires de transfert',
   tr_new: 'Nouveau prestataire de transfert',
