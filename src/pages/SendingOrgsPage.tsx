@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
+import { useT } from '../lib/i18n'
 import type { SendingOrganisation } from '../types'
 import ConfirmDialog from '../components/ConfirmDialog'
 
-function FR({ label, name, value, editing, type = 'text', onChange }: { label: string; name: string; value: string | null; editing: boolean; type?: string; onChange: (n: string, v: string) => void }) {
+function FR({ label, name, value, editing, type = 'text', onChange, empty }: { label: string; name: string; value: string | null; editing: boolean; type?: string; onChange: (n: string, v: string) => void; empty: string }) {
   return (
     <div className="field-row">
       <div className="field-label">{label}</div>
-      {editing ? <input className="form-input form-input-sm" type={type} value={value ?? ''} onChange={e => onChange(name, e.target.value)} /> : <div className="field-value">{value || '—'}</div>}
+      {editing ? <input className="form-input form-input-sm" type={type} value={value ?? ''} onChange={e => onChange(name, e.target.value)} /> : <div className="field-value">{value || empty}</div>}
     </div>
   )
 }
@@ -15,6 +16,7 @@ function FR({ label, name, value, editing, type = 'text', onChange }: { label: s
 const EMPTY: Partial<SendingOrganisation> = { name: '', contact_person: '', email: '', phone: '', address: '', city: '', country: '' }
 
 export default function SendingOrgsPage() {
+  const { t } = useT()
   const [items, setItems] = useState<SendingOrganisation[]>([])
   const [selected, setSelected] = useState<SendingOrganisation | null>(null)
   const [search, setSearch] = useState('')
@@ -53,12 +55,12 @@ export default function SendingOrgsPage() {
 
   return (
     <div className="split-layout">
-      {showConfirm && <ConfirmDialog message={`Eliminare "${selected?.name}"?`} onConfirm={handleDelete} onCancel={() => setShowConfirm(false)} />}
+      {showConfirm && <ConfirmDialog message={`${t('confirm_delete')} "${selected?.name}"? ${t('confirm_irrev')}`} onConfirm={handleDelete} onCancel={() => setShowConfirm(false)} />}
       <div className="split-left">
-        <div className="split-header"><h2 className="split-title">Sending Organisations</h2><span className="badge-count">{filtered.length}</span></div>
+        <div className="split-header"><h2 className="split-title">{t('page_sending_orgs')}</h2><span className="badge-count">{filtered.length}</span></div>
         <div className="search-bar" style={{ display: 'flex', gap: 6 }}>
-          <input type="text" className="form-input" placeholder="Cerca..." value={search} onChange={e => setSearch(e.target.value)} style={{ flex: 1 }} />
-          <button className="btn btn-accent btn-sm" onClick={startNew}>+</button>
+          <input type="text" className="form-input" placeholder={t('list_search')} value={search} onChange={e => setSearch(e.target.value)} style={{ flex: 1 }} />
+          <button className="btn btn-accent btn-sm" onClick={startNew}>{t('btn_new')}</button>
         </div>
         {loading ? <div className="list-loading"><div className="spinner-sm"></div></div> : (
           <div className="participant-list">
@@ -68,7 +70,7 @@ export default function SendingOrgsPage() {
                 <div className="participant-info"><div className="participant-name">{o.name}</div><div className="participant-meta">{o.city}{o.country ? ` · ${o.country}` : ''}</div></div>
               </div>
             ))}
-            {filtered.length === 0 && <div className="empty-state">Nessuna organizzazione trovata</div>}
+            {filtered.length === 0 && <div className="empty-state">{t('list_empty')}</div>}
           </div>
         )}
       </div>
@@ -77,26 +79,26 @@ export default function SendingOrgsPage() {
           <div className="detail-panel">
             <div className="detail-action-bar">
               {editing
-                ? <><span style={{ fontWeight: 600, color: '#2D7A6F' }}>{isNew ? 'Nuova Organizzazione' : 'Modifica'}</span><div className="action-bar-right">{saveError && <span className="save-error">{saveError}</span>}<button className="btn btn-secondary btn-sm" onClick={cancel}>Annulla</button><button className="btn btn-accent btn-sm" onClick={handleSave} disabled={saving}>{saving ? 'Salvo...' : '💾 Salva'}</button></div></>
-                : <><span /><div className="action-bar-right"><button className="btn btn-edit btn-sm" onClick={startEdit}>✏️ Modifica</button><button className="btn btn-danger btn-sm" onClick={() => setShowConfirm(true)}>🗑 Elimina</button></div></>}
+                ? <><span style={{ fontWeight: 600, color: '#2D7A6F' }}>{isNew ? t('detail_mode_new') : t('detail_mode_edit')}</span><div className="action-bar-right">{saveError && <span className="save-error">{saveError}</span>}<button className="btn btn-secondary btn-sm" onClick={cancel}>{t('btn_cancel')}</button><button className="btn btn-accent btn-sm" onClick={handleSave} disabled={saving}>{saving ? t('btn_saving') : t('btn_save')}</button></div></>
+                : <><span /><div className="action-bar-right"><button className="btn btn-edit btn-sm" onClick={startEdit}>{t('btn_edit')}</button><button className="btn btn-danger btn-sm" onClick={() => setShowConfirm(true)}>{t('btn_delete')}</button></div></>}
             </div>
-            {!isNew && selected && <div className="detail-name-header"><div className="detail-avatar" style={{ background: '#2D7A6F22', color: '#2D7A6F' }}>{selected.name.charAt(0)}</div><div><h2 className="detail-name">{selected.name}</h2><p className="detail-id">{selected.city}, {selected.country}</p></div></div>}
-            {isNew && <div className="detail-name-header"><div className="detail-avatar" style={{ background: '#2D7A6F' }}>+</div><div><h2 className="detail-name">Nuova Organizzazione</h2></div></div>}
+            {!isNew && selected && <div className="detail-name-header"><div className="detail-avatar" style={{ background: '#2D7A6F22', color: '#2D7A6F' }}>{selected.name.charAt(0)}</div><div><h2 className="detail-name">{selected.name}</h2><p className="detail-id">{[selected.city, selected.country].filter(Boolean).join(', ') || t('none')}</p></div></div>}
+            {isNew && <div className="detail-name-header"><div className="detail-avatar" style={{ background: '#2D7A6F' }}>+</div><div><h2 className="detail-name">{t('so_new')}</h2></div></div>}
             <div className="detail-sections">
-              <div className="detail-section-header">Dati Organizzazione</div>
+              <div className="detail-section-header">{t('sec_so_details')}</div>
               <div className="fields-grid">
-                <FR label="Nome" name="name" value={v('name')} editing={editing} onChange={handleChange} />
-                <FR label="Contatto" name="contact_person" value={v('contact_person')} editing={editing} onChange={handleChange} />
-                <FR label="Email" name="email" value={v('email')} editing={editing} type="email" onChange={handleChange} />
-                <FR label="Telefono" name="phone" value={v('phone')} editing={editing} onChange={handleChange} />
-                <FR label="Indirizzo" name="address" value={v('address')} editing={editing} onChange={handleChange} />
-                <FR label="Città" name="city" value={v('city')} editing={editing} onChange={handleChange} />
-                <FR label="Paese" name="country" value={v('country')} editing={editing} onChange={handleChange} />
+                <FR label={t('fld_sending_org')} name="name" value={v('name')} editing={editing} onChange={handleChange} empty={t('none')} />
+                <FR label={t('fld_contact')} name="contact_person" value={v('contact_person')} editing={editing} onChange={handleChange} empty={t('none')} />
+                <FR label={t('fld_email')} name="email" value={v('email')} editing={editing} type="email" onChange={handleChange} empty={t('none')} />
+                <FR label={t('fld_phone')} name="phone" value={v('phone')} editing={editing} onChange={handleChange} empty={t('none')} />
+                <FR label={t('fld_address')} name="address" value={v('address')} editing={editing} onChange={handleChange} empty={t('none')} />
+                <FR label={t('fld_city')} name="city" value={v('city')} editing={editing} onChange={handleChange} empty={t('none')} />
+                <FR label={t('fld_country')} name="country" value={v('country')} editing={editing} onChange={handleChange} empty={t('none')} />
               </div>
             </div>
           </div>
         ) : (
-          <div className="detail-empty"><div className="detail-empty-icon">🏛</div><p>Seleziona un'organizzazione o creane una nuova</p><button className="btn btn-accent" onClick={startNew} style={{ marginTop: 12 }}>+ Nuova Organizzazione</button></div>
+          <div className="detail-empty"><div className="detail-empty-icon">🏛</div><p>{t('so_hint')}</p><button className="btn btn-accent" onClick={startNew} style={{ marginTop: 12 }}>{t('so_new')}</button></div>
         )}
       </div>
     </div>
